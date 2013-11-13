@@ -40,6 +40,13 @@ NODE* getHead(LIST &l){
 	return pResult;
 }
 
+NODE* searchNode(LIST l,int x){
+	for(NODE*p=l.pHead;p!=NULL;p=p->pNext){
+		if(p->Info==x) return p;
+	}
+	return NULL;
+}
+
 void addHead(LIST &l,NODE* p){
 	if(l.pHead==NULL){
 		l.pHead = p;
@@ -65,10 +72,12 @@ void addAfter(LIST &l,NODE *q,NODE *p){
 		l.pHead=l.pTail=p;
 	}
 	if(q!=NULL){
-		p->pNext = q->pNext;
-		q->pNext = p;
+		NODE* x = searchNode(l,q->Info);
+		p->pNext = x->pNext;
+		x->pNext = p;
 	}
 	if(q==l.pTail){
+		l.pTail->pNext=p;
 		l.pTail = p;
 	}
 }
@@ -111,13 +120,6 @@ void processNode(NODE *node)
 		processNode(node->pNext);
 		
 	printf("%4d", node->Info);
-}
-
-NODE* searchNode(LIST l,int x){
-	for(NODE*p=l.pHead;p!=NULL;p=p->pNext){
-		if(p->Info==x) return p;
-	}
-	return NULL;
 }
 
 void xuat(LIST l){
