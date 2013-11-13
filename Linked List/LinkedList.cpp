@@ -40,14 +40,14 @@ NODE* getHead(LIST &l){
 	return pResult;
 }
 
-void addHead(LIST &l,NODE* new_ele){
+void addHead(LIST &l,NODE* p){
 	if(l.pHead==NULL){
-		l.pHead = new_ele;
+		l.pHead = p;
 		l.pTail = l.pHead;
 	}
 	else{
-		new_ele->pNext = l.pHead;
-		l.pHead = new_ele;
+		p->pNext = l.pHead;
+		l.pHead = p;
 	}
 }
 
@@ -74,11 +74,15 @@ void addAfter(LIST &l,NODE *q,NODE *p){
 }
 
 void addBefore(LIST &l,NODE *q,NODE *p){
-	NODE *x = NULL;
+	NODE *x = l.pHead;
 	NODE *t = l.pHead;
 	while(t->Info!=q->Info&&t!=NULL){
 		x=t;
 		t=t->pNext;
+	}
+	if(x==l.pHead){
+		addHead(l,p); 
+		return;
 	}
 	addAfter(l,x,p);
 }
