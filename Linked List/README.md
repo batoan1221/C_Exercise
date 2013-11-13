@@ -1,0 +1,5 @@
+- set isEmpty
+- set addTail
+- set addAfter
+- set addBefore
+- set getHead
